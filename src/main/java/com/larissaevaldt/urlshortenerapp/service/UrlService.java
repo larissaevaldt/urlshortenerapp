@@ -1,6 +1,7 @@
 package com.larissaevaldt.urlshortenerapp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,12 @@ public class UrlService {
 	}
 	
 	public void addNewUrl(Url url) {
-		System.out.println(url);
+		Optional<Url> urlOptional = urlRepository
+				.findUrlsByShortUrl(url.getShort_url());
+		if(urlOptional.isPresent()) {
+			throw new IllegalStateException("short url taken");
+		}
+		urlRepository.save(url);
 		
 	}
 	
