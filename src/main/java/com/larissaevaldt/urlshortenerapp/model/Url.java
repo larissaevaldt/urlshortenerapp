@@ -16,6 +16,7 @@ import javax.persistence.Id;
 @Table(name="urls")
 public class Url {
 	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "serial")
