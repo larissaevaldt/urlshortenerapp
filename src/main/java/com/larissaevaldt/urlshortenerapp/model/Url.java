@@ -1,7 +1,24 @@
 package com.larissaevaldt.urlshortenerapp.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+/*
+ * JPA Entity
+ * This class represents a table in the database
+ * With the annotations @Entity and @Table this class will be automatically mapped to the urls table
+ */
+@Entity // This tells Hibernate to make a table out of this class
+@Table(name="urls")
 public class Url {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial")
 	private Long id;
 	private String original_url;
 	private String short_url;
