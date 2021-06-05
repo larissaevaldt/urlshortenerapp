@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.hash.Hashing;
+import org.apache.commons.validator.routines.UrlValidator;
 import com.larissaevaldt.urlshortenerapp.model.Url;
 import com.larissaevaldt.urlshortenerapp.repository.UrlRepository;
 
@@ -62,6 +63,19 @@ public class UrlService {
         } 
 		
 		return shortUrl;
+	}
+	
+	public boolean validateUrl(String longUrl) {
+		
+		UrlValidator urlValidator = new UrlValidator(
+                new String[]{"http", "https"}
+        );
+		
+		if (urlValidator.isValid(longUrl)) {
+            return true;
+        } else {
+        	return false;
+        }
 	}
 	
 	
