@@ -28,8 +28,14 @@ public class UrlController {
 		return urlService.getUrls();
 	}
 	
-	@PostMapping
+	@PostMapping()
 	public void registerNewUrl(@RequestBody Url url) {
 		urlService.addNewUrl(url);
+	}
+	
+	@PostMapping("/short")
+	public void shortenUrl(@RequestBody String originalUrl) {
+		String code = urlService.generateShortUrl(originalUrl);
+		System.out.println("Your code is: " + code);
 	}
 }
