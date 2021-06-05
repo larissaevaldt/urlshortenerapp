@@ -58,6 +58,9 @@ public class UrlService {
 			counter++;
 			url = findByShortUrl(shortUrl);
         } 
+		
+		Url urlToSave = new Url(longUrl, shortUrl);
+		addNewUrl(urlToSave);
 		return shortUrl;
 	}
 	
