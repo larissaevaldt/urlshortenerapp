@@ -35,6 +35,7 @@ public class UrlController {
 	public List<Url> hello() {
 		return urlService.getUrls();
 	}
+	
 	@GetMapping("/{shortUrl}")
 	public ResponseEntity<?> getLongUrl(@PathVariable String shortUrl) throws URISyntaxException {
 
@@ -62,11 +63,19 @@ public class UrlController {
 	}
 	
 	@PostMapping("/short")
-	public ResponseEntity<Url> shortenUrl(@RequestBody String originalUrl) {
-		String shortUrl = urlService.generateShortUrl(originalUrl);
-		Url url = new Url(originalUrl, shortUrl);
-		Url savedUrl = urlService.save(url);
-		return ResponseEntity.ok(savedUrl);
+	public ResponseEntity<?> shortenUrl(@RequestBody String originalUrl) {
+		
+	 if(urlService.validateUrl(originalUrl)) {
+		 
+		 String shortUrl = urlService.generateShortUrl(originalUrl);
+		 Url url = new Url(originalUrl, shortUrl);
+		 Url savedUrl = urlService.save(url);
+		 
+		 return ResponseEntity.ok(savedUrl);
+		 
+	 } else {
+		 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("URL invalid");
+	 }
 		
 	}
 	
