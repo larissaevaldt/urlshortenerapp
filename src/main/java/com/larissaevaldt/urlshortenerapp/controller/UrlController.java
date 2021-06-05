@@ -3,6 +3,7 @@ package com.larissaevaldt.urlshortenerapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,12 +31,16 @@ public class UrlController {
 	
 	@PostMapping()
 	public void registerNewUrl(@RequestBody Url url) {
-		urlService.addNewUrl(url);
+		urlService.save(url);
 	}
 	
 	@PostMapping("/short")
-	public void shortenUrl(@RequestBody String originalUrl) {
-		String code = urlService.generateShortUrl(originalUrl);
-		System.out.println("Your code is: " + code);
+	public ResponseEntity<Url> shortenUrl(@RequestBody String originalUrl) {
+		String shortUrl = urlService.generateShortUrl(originalUrl);
+		Url url = new Url(originalUrl, shortUrl);
+		Url savedUrl = urlService.save(url);
+		return ResponseEntity.ok(savedUrl);
+		
 	}
+	
 }
