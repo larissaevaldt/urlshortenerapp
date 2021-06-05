@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
 
+import com.larissaevaldt.urlshortenerapp.dto.UrlDto;
 import com.larissaevaldt.urlshortenerapp.model.Url;
 import com.larissaevaldt.urlshortenerapp.service.UrlService;
 
@@ -43,7 +44,7 @@ public class UrlController {
 //        return ResponseEntity.of(optionalUrl);
         
         if (optionalUrl.isPresent()) {
-        	System.out.println("cheguei");
+   
         	Url url = optionalUrl.get();
 			
         	URI uri = new URI(url.getOriginal_url());
@@ -63,9 +64,11 @@ public class UrlController {
 	}
 	
 	@PostMapping("/short")
-	public ResponseEntity<?> shortenUrl(@RequestBody String originalUrl) {
+	public ResponseEntity<?> shortenUrl(@RequestBody UrlDto urlDto) {
 		
-	 if(urlService.validateUrl(originalUrl)) {
+		String originalUrl = urlDto.getLongUrl();
+		
+		if(urlService.validateUrl(originalUrl)) {
 		 
 		 String shortUrl = urlService.generateShortUrl(originalUrl);
 		 Url url = new Url(originalUrl, shortUrl);
