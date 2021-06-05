@@ -11,7 +11,7 @@ import com.google.common.hash.Hashing;
 import com.larissaevaldt.urlshortenerapp.model.Url;
 import com.larissaevaldt.urlshortenerapp.repository.UrlRepository;
 
-@Service //this is a bean that holds the logic 
+@Service //a bean that holds the logic 
 public class UrlService {
 	
 	private final UrlRepository urlRepository;
@@ -33,25 +33,27 @@ public class UrlService {
 		return urlOptional;
 	}
 	
-	public void addNewUrl(Url url) {
+	public Url save(Url url) {
 		Optional<Url> urlOptional = findByShortUrl(url.getShort_url());
 		
 		if(urlOptional.isPresent()) {
-			throw new IllegalStateException("short url taken");
+			return null;
 		}
-		urlRepository.save(url);	
+		return urlRepository.save(url);	
+		
 	}
 	
 	public String generateShortUrl(String longUrl) {
 
 		int counter = 0;
-		System.out.println("longUrl = " + longUrl + ", counter = " + counter);
-		//get the short URL
+		
+		//create a short URL
 		String shortUrl = Hashing.murmur3_32().hashString(longUrl, StandardCharsets.UTF_8).toString();
-		System.out.println("shortUrl = " + shortUrl); 
+		
 		//check if the generated URL is already in the database to prevent storing duplicates
 		Optional<Url> url = findByShortUrl(shortUrl);
-		System.out.println(url);
+		
+		//if shortUrl is already in the db, append a number to the end to create a different code
 		while (url.isPresent() ){
 			shortUrl = Hashing.murmur3_32().hashString(longUrl.concat(String.valueOf(counter)),
 														StandardCharsets.UTF_8).toString();
@@ -59,8 +61,6 @@ public class UrlService {
 			url = findByShortUrl(shortUrl);
         } 
 		
-		Url urlToSave = new Url(longUrl, shortUrl);
-		addNewUrl(urlToSave);
 		return shortUrl;
 	}
 	
