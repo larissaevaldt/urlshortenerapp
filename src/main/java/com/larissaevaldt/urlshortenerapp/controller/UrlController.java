@@ -21,6 +21,11 @@ import com.larissaevaldt.urlshortenerapp.dto.UrlDto;
 import com.larissaevaldt.urlshortenerapp.model.Url;
 import com.larissaevaldt.urlshortenerapp.service.UrlService;
 
+/**
+ * URL Controller
+ *
+ * Created by Larissa Evaldt
+ */
 @RestController
 @RequestMapping(path = "api/v1")
 public class UrlController {
@@ -37,11 +42,11 @@ public class UrlController {
 		return urlService.getUrls();
 	}
 	
+	
 	@GetMapping("/{shortUrl}")
 	public ResponseEntity<?> getLongUrl(@PathVariable String shortUrl) throws URISyntaxException {
 
         Optional<Url> optionalUrl = urlService.findByShortUrl(shortUrl);
-//        return ResponseEntity.of(optionalUrl);
         
         if (optionalUrl.isPresent()) {
    
@@ -58,23 +63,31 @@ public class UrlController {
         }
         
 	}
-	@PostMapping()
-	public void registerNewUrl(@RequestBody Url url) {
-		urlService.save(url);
-	}
 	
-	@PostMapping("/short")
+	
+	/**
+     * Receives a long URL to shorten, validates if URL is valid, generate short URL, save in the database
+     * 
+     * @param urlDto A long URL to shorten
+     * @return ResponseEntity with status 201 created and the short URL or 400 with a URL invalid message
+     */
+	@PostMapping("/shorten")
 	public ResponseEntity<?> shortenUrl(@RequestBody UrlDto urlDto) {
-		
+		//get URL from the body of the request
 		String originalUrl = urlDto.getLongUrl();
 		
+		//make sure URL is valid
 		if(urlService.validateUrl(originalUrl)) {
 		 
+		 //generate the short code
 		 String shortUrl = urlService.generateShortUrl(originalUrl);
+		 
+		 //create an object and save in the database
 		 Url url = new Url(originalUrl, shortUrl);
 		 Url savedUrl = urlService.save(url);
 		 
-		 return ResponseEntity.ok(savedUrl);
+		 //return response entity		 
+		 return ResponseEntity.created(URI.create(savedUrl.getShort_url())).body("http://localhost:8080/api/v1/"+savedUrl.getShort_url());
 		 
 	 } else {
 		 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("URL invalid");

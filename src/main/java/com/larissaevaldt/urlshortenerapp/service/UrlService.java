@@ -45,7 +45,7 @@ public class UrlService {
 	}
 	
 	public String generateShortUrl(String longUrl) {
-
+		
 		int counter = 0;
 		
 		//create a short URL
