@@ -1,17 +1,19 @@
 package com.larissaevaldt.urlshortenerapp.dto;
 
-
 /**
  * Data Transfer Object for a URL.
+ * 
+ * Created by Larissa Evaldt
  */
 public class UrlDto {
-	
+
 	private String longUrl;
-	
+
 	/**
-     * Constructor to fully initialize the UrlDTO
-     * @param long URL to be shortened
-     */
+	 * Constructor to fully initialize the UrlDTO
+	 * 
+	 * @param long URL to be shortened
+	 */
 	public UrlDto(String longUrl) {
 		this.longUrl = longUrl;
 	}
@@ -26,6 +28,6 @@ public class UrlDto {
 
 	public void setLongUrl(String longUrl) {
 		this.longUrl = longUrl;
-	}	
+	}
 
 }
