@@ -2,7 +2,6 @@ package com.larissaevaldt.urlshortenerapp.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +36,6 @@ public class UrlController {
 		this.urlService = urlService;
 	}
 
-	@GetMapping
-	public List<Url> hello() {
-		return urlService.getUrls();
-	}
-	
 	
 	@GetMapping("/{shortUrl}")
 	public ResponseEntity<?> getLongUrl(@PathVariable String shortUrl) throws URISyntaxException {
