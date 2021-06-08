@@ -29,7 +29,7 @@ public class UrlService {
 	}
 
 	/**
-	 * Save a URL object in the datase.
+	 * Save a URL object in the database.
 	 *
 	 * @param url is a complete Url object with long and short URL, the id is
 	 *            automatically generated.
