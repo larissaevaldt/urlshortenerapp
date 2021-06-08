@@ -23,10 +23,10 @@ public class UrlRepositoryTest {
 	}
 	
 	@Test
-	void itShouldCheckIfUrlShortUrlExists() {
+	void itShouldCheckWhenUrlShortUrlExists() {
 		// given
 		String shortUrl = "12ty678o";
-		Url url =  new Url(shortUrl, "https://spring.io/guides/gs/testing-web/");
+		Url url =  new Url("https://spring.io/guides/gs/testing-web/", shortUrl);
 		Url savedUrl = underTest.save(url);
 		
 		// when
@@ -37,7 +37,7 @@ public class UrlRepositoryTest {
 	}
 	
 	@Test
-	void itShouldCheckIfUrlShortUrlDoesNotExist() {
+	void itShouldCheckWhenUrlShortUrlDoesNotExist() {
 		// given
 		String shortUrl = "12ty678o";
 		
