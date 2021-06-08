@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import static org.springframework.http.HttpStatus.MOVED_PERMANENTLY;
 
 import com.larissaevaldt.urlshortenerapp.dto.UrlDto;
@@ -80,7 +81,7 @@ public class UrlController {
 	 * @return ResponseEntity with status 201 created and the short URL or 400 with
 	 *         a URL invalid message
 	 */
-	@PostMapping("/shorten")
+	@PostMapping("/")
 	public ResponseEntity<?> shortenUrl(@RequestBody UrlDto urlDto) {
 		// get URL from the body of the request
 		String originalUrl = urlDto.getLongUrl();
@@ -94,11 +95,11 @@ public class UrlController {
 			// create an object and save in the database
 			Url url = new Url(originalUrl, shortUrl);
 			Url savedUrl = urlService.save(url);
-
+			
 			// return response entity
 			return ResponseEntity.created(URI.create(savedUrl.getShort_url()))
 					.body("http://localhost:8080/api/v1/" + savedUrl.getShort_url());
-
+		
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("URL invalid");
 		}
