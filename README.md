@@ -3,7 +3,7 @@
 <p>
   <img alt="PRs welcome!" src="https://img.shields.io/static/v1?label=PRs&message=WELCOME&style=for-the-badge&color=4A90E2&labelColor=222222" />
      
-  <img alt="GitHub license" src="https://img.shields.io/github/license/larissaevaldt/urlshortenerapp?color=4A90E2&label=LICENSE&logo=3C424B&logoColor=3C424B&style=for-the-badge&labelColor=222222" />
+  <img alt="GitHub license" src="https://img.shields.io/github/license/larissaevaldt/urlshortenerapp?color=4A90E2&logo=3C424B&logoColor=3C424B&style=for-the-badge&labelColor=222222" />
 
   <a href="https://github.com/larissaevaldt">
     <img alt="Follow larissaevaldt" src="https://img.shields.io/static/v1?label=Follow&message=larissaevaldt&style=for-the-badge&color=4A90E2&labelColor=222222" />
