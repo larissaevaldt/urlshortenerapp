@@ -1,7 +1,7 @@
 version: '2'
 services:
     web:
-      image: myapi
+      build: .
       ports:
         - 8080:8080
       depends_on:
@@ -20,4 +20,5 @@ services:
             - 5432:5432
 
 volumes:
-    url-postgres-db: {}
+    url-postgres-db: 
+    
