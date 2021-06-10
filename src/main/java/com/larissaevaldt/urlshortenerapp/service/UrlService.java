@@ -86,12 +86,9 @@ public class UrlService {
 	public boolean validateUrl(String longUrl) {
 
 		UrlValidator urlValidator = new UrlValidator(new String[] { "http", "https" });
-
-		if (urlValidator.isValid(longUrl)) {
-			return true;
-		} else {
-			return false;
-		}
+	
+		return urlValidator.isValid(longUrl);
+		
 	}
 
 	/**
@@ -102,8 +99,7 @@ public class UrlService {
 	 *         short code is not in the database.
 	 */
 	public Optional<Url> findByShortUrl(String shortUrl) {
-		Optional<Url> urlOptional = urlRepository.findUrlsByShortUrl(shortUrl);
-		return urlOptional;
+		return urlRepository.findUrlsByShortUrl(shortUrl);
 	}
 
 }
